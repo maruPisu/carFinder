@@ -137,6 +137,23 @@ function fillCarDetails($url, $name, $brand, $brand_id){
     }
     
     //no match found :(
+    
+    $sql = "select m_id, brand_name, model_name from model_brand where model_name like 'unknown' and b_id = {$brand_id}";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $car->model_id = $row["m_id"];
+            return $car;    //Should be only 1 anyways
+        }   
+    }else{
+        $sql = "insert ignore into model (name,brand ) VALUES ('unknown', {$brand_id})";
+        $result = $conn->query($sql);
+        $last_id = $conn->insert_id;
+        $car->model_id = $last_id;
+        return $car;        
+    }
+    
+    //should never arrive here
     return $car;
 }
 

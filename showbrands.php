@@ -15,7 +15,7 @@ if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
     
 		echo "<div>
-        <a href = '?brand={$row["id"]}' > {$row["name"]} </a>
+        <a href = '?brand={$row["id"]}' ><div> {$row["name"]} </div></a>
         <div style='float:right;'>"; 
         if($row["url_ridc"] != ""){
             echo "<div class = 'crop' style = 'display:inline-block;''><a href = '{$row["url_ridc"]}' target='_blank' >  <img src='ridc.png'>  </a></div>";
